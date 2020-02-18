@@ -2,8 +2,14 @@ extern crate reqwest;
 extern crate select;
 
 use reqwest::Error;
-use select::document::Document;
-use select::predicate::Name;
+use select::{document::Document, node::Node, predicate::Name};
+
+fn link(node: Node) -> Option<(String, String)> {
+    match node.attr("href") {
+        Some(link) => Some((link.to_owned(), node.text())),
+        None => None
+    }
+}
 
 async fn fetch() -> Result<(), Error> {
     let body = reqwest::get("https://www.rust-lang.org")
@@ -13,8 +19,8 @@ async fn fetch() -> Result<(), Error> {
 
     Document::from(body.as_str())
         .find(Name("a"))
-        .filter_map(|n| n.attr("href"))
-        .for_each(|x| println!("{}", x));
+        .filter_map(link)
+        .for_each(|x| println!("{:?}", x));
     Ok(())
 }
 
