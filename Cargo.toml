@@ -11,3 +11,5 @@ reqwest = "0.10.1"                # higher level HTTP client library
 futures = "0.3.4"                 # An implementation of futures and streams featuring zero allocations, composability, and itera…
 tokio = { version = "0.2", features = ["full"] }
 select = "0.4.3"                            # A library to extract useful data from HTML documents, suitable for web scraping.
+url = "2.1.1"              # URL library for Rust, based on the WHATWG URL Standard
+magic = "0.12.2"                      # libmagic bindings
